@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "esnext",
+    "rootDir": ".",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/main.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
