@@ -1,8 +1,7 @@
-import Application from './Application';
+import HttpServer from './app/HttpServer';
 
 async function main(): Promise<void> {
-    const app = new Application();
-    return await app.start();
+    return await new HttpServer().start();
 }
 
 main().catch(console.log);

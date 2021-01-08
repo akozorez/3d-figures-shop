@@ -4,9 +4,10 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "start": "DEBUG=Application node build/main.js",
-    "r": "clear && npm run build && npm run start"
+    "remove": "rm -rf build",
+    "build": "tsc --build --force tsconfig.json",
+    "start": "DEBUG=Application node build/src/main.js",
+    "all": "clear && npm run remove && npm run build && npm run start"
   },
   "keywords": [],
   "author": "Alexandr Kozorez",
@@ -15,6 +16,7 @@
     "body-parser": "^1.19.0",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "mongodb": "^3.6.3",
