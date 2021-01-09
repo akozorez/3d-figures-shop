@@ -4,10 +4,10 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "remove": "rm -rf build",
+    "remove": "rd /s /q build",
     "build": "tsc --build --force tsconfig.json",
-    "start": "DEBUG=Application node build/src/main.js",
-    "all": "clear && npm run remove && npm run build && npm run start"
+    "start": "node build/src/main.js",
+    "all": "cls && npm run remove && npm run build && npm run start"
   },
   "keywords": [],
   "author": "Alexandr Kozorez",
