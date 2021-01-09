@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { IUserModel, UserModel } from '../models/UserModel';
 import { IServiceResult } from './interfaces';
 
@@ -36,7 +35,7 @@ export default class UserService {
         })
     }
 
-    private static async findByName(name: string): Promise<IUserModel | null> {
+    public static async findByName(name: string): Promise<IUserModel | null> {
         return new Promise(async (resolve, reject) => {
             await UserModel.findOne({ 'name': name })
                 .exec(function(err: any, user: IUserModel) {
