@@ -7,14 +7,16 @@
     "remove": "rm -rf build",
     "remove:win": "rd /s /q build",
     "build": "tsc --build --force tsconfig.json",
-    "start": "DEBUG=Application,Middleware DEBUG_COLORS=no node build/src/main.js",
+    "start": "node build/src/main.js",
     "copy": "cp -r ./src/views ./build/src && cp -r ./src/public ./build/src && npm run copy:bootstrap",
     "copy:bootstrap": "cp ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/src/public/style",
-    "copy:win:bootstrap": "Xcopy ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/src/public/style",
-    "copy:win": "Xcopy /E /I ./src/views ./build/src && Xcopy /E /I ./src/public ./build/src && npm run copy:win:bootstrap",
+    "copy:win:bootstrap": "Xcopy node_modules\\bootstrap\\dist\\css\\bootstrap.min.css build\\src\\public\\style\\ /E /I /D",
+    "copy:views": "Xcopy src\\views build\\src\\views\\ /E /I /D",
+    "copy:public": "Xcopy src\\public build\\src\\public\\ /E /I /D",
+    "copy:win": "npm run copy:views && npm run copy:public && npm run copy:win:bootstrap",
     "all": "clear && npm run remove && npm run build && npm run copy && npm run start",
-    "all:win": "clear && npm run remove:win && npm run build && npm run copy:win && npm run start",
-    "test": "mocha -r ts-node ./tests/*.ts",
+    "all:win": "cls && npm run remove:win && npm run build && npm run copy:win && npm run start",
+    "test": "mocha -r ts-node/register ./tests/*.ts",
     "test:builded": "mocha ./build/tests/*.js"
   },
   "keywords": [],
@@ -32,7 +34,6 @@
     "mongoose": "^5.10.3"
   },
   "devDependencies": {
-    "typescript": "^4.1.3",
     "@types/chai": "^4.2.14",
     "@types/debug": "^4.1.5",
     "@types/express": "^4.17.9",
@@ -40,6 +41,7 @@
     "@types/mongoose": "^5.10.3",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
-    "ts-node": "^9.1.1"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
   }
 }
