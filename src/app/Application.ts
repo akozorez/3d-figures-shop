@@ -25,14 +25,14 @@ export default class Application implements IApplication {
     }
 
     public async start(): Promise<http.Server> {
+
         return new Promise(async (resolve, reject) => {
-            await mongoose.connect(MONGO_URI, MONGO_SETTINGS, (error) => {
-                if (error) {
-                    reject(error.message);
-                } else {
-                    resolve(http.createServer(this.app).listen(this.app.get(PORT)));
-                }
-            });
+            try {
+                await mongoose.connect(MONGO_URI, MONGO_SETTINGS);
+                resolve(http.createServer(this.app).listen(this.app.get(PORT)));
+            } catch (err) {
+                reject(err.message);
+            }
         });
     }
 

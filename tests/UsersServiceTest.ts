@@ -1,16 +1,15 @@
 import { it } from 'mocha';
 import { assert } from 'chai';
-import UserService from '../services/UserService';
 import * as mongoose from 'mongoose';
-import { MONGO_CONNECTION_OPTIONS, MONGO_URI } from '../app/Const';
-import { IUserModel, UserTestModel } from '../models/UserModel';
-import { IServiceResult } from '../services/interfaces';
+import UserService from '../src/services/UserService';
+import { MONGO_SETTINGS, MONGO_URI } from '../src/app/Const';
+import { IUserModel, UserTestModel } from '../src/models/UserModel';
+import { IServiceResult } from '../src/services/interfaces';
 
 describe('User service tests', () => {
 
-
     before(async function() {
-        await mongoose.connect(MONGO_URI, MONGO_CONNECTION_OPTIONS);
+        await mongoose.connect(MONGO_URI, MONGO_SETTINGS);
     });
 
     it('test get empty users', () => {

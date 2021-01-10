@@ -1,6 +1,6 @@
-import { IUserModel, UserModel, UserSchema } from '../models/UserModel';
+import { IUserModel, UserModel } from '../models/UserModel';
 import { IServiceResult } from './interfaces';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 
 export default class UserService {
 
@@ -17,10 +17,8 @@ export default class UserService {
 
     public static async get(name: string, userModel: Model<any> = UserModel): Promise<IUserModel | IServiceResult> {
         let user = await this.findByName(name, userModel);
-        if (user === null) {
-            return { error: true, message: "the user is not found" };
-        }
-        return user;
+        if(user) return user;
+        return { error: true, message: "the user is not found" };
     }
 
     public static async update(name: string, password: string, role: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
