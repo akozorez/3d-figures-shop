@@ -5,15 +5,22 @@
   "main": "src/main.ts",
   "scripts": {
     "remove": "rm -rf build",
+    "remove:win": "rd /s /q build",
     "build": "tsc --build --force tsconfig.json",
-    "start": "DEBUG=Application node build/src/main.js",
-    "all": "clear && npm run remove && npm run build && npm run start"
+    "start": "DEBUG=Application,Middleware DEBUG_COLORS=no node build/src/main.js",
+    "copy": "cp -r ./src/views ./build/src && cp -r ./src/public ./build/src && npm run copy:bootstrap",
+    "copy:bootstrap": "cp ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/src/public/style",
+    "copy:win:bootstrap": "Xcopy ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/src/public/style",
+    "copy:win": "Xcopy /E /I ./src/views ./build/src && Xcopy /E /I ./src/public ./build/src && npm run copy:win:bootstrap",
+    "all": "clear && npm run remove && npm run build && npm run copy && npm run start",
+    "all:win": "clear && npm run remove:win && npm run build && npm run copy:win && npm run start"
   },
   "keywords": [],
   "author": "Alexandr Kozorez",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
