@@ -1,7 +1,12 @@
-import HttpServer from './app/HttpServer';
+import Application from './app/Application';
+import { IDebugger } from './app/interfaces';
+import { LISTEN_FORMATTER } from './app/Const';
 
-async function main(): Promise<void> {
-    return await new HttpServer().start();
+function main() {
+    const app: Application = new Application();
+    const logger: IDebugger = app.getLogger();
+    const port: number = app.getPort();
+    app.start().then(() => logger(LISTEN_FORMATTER, port)).catch(logger);
 }
 
-main().catch(console.log);
+main();

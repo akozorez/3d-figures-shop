@@ -1,0 +1,44 @@
+html, body {
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow-y: hidden;
+    background: #f5e9e2;
+}
+
+p {
+    margin: 0;
+}
+
+.header-red {
+    background: #cf172b;
+    color: #ecf0f1;
+    padding: 1rem 1rem;
+}
+
+.info {
+    background: #4f5d75;
+    color: #ecf0f1;
+}
+
+.how-we-work {
+}
+
+.from-what {
+
+}
+
+a, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.header-menu a {
+    margin: 0 .25rem;
+}

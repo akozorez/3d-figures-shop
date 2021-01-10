@@ -1,19 +1,13 @@
-import { Router as ExpressRouter } from 'express';
-import { MainController } from '../controllers';
+import { MainController, ErrorController } from '../controllers';
+import { ExpressRouter } from './interfaces';
 
 export default class Router {
-    private static _web: ExpressRouter;
+    public static getRouter(): ExpressRouter {
+        const router = ExpressRouter();
+        router.get('/', MainController.index);
+        router.get('/test', MainController.test);
 
-    public static get(): ExpressRouter {
-        if (Router._web) {
-            return Router._web;
-        } else {
-            const router = ExpressRouter();
-
-            router.get('/', MainController.index);
-
-
-            return Router._web = router;
-        }
+        router.get('*', ErrorController.notFound);
+        return router;
     }
 }
