@@ -5,22 +5,22 @@ import FigureService from './FigureService';
 import { ITrackModel, TrackModel } from '../models/TrackModel';
 
 export default class TrackService {
-    public static async add(userName: string, figureName: string): Promise<IServiceResult> {
-        let user = UserService.findByName(userName);
-        let figure = FigureService.findByName(figureName);
+    public static async add(userName: string, figureName: string, address: string): Promise<IServiceResult> {
+        let user = await UserService.findByName(userName);
+        let figure = await FigureService.findByName(figureName);
         let status = "Собирается";
         return new Promise(async (resolve) => {
-                await TrackModel.create({status: status, figure: figure, user: user},
-                    function (err: any) {
-                        if (err) resolve({error: true, message: err.message});
-                        else resolve({error: false, message: "Saved successfully!"});
-                    });
+            await TrackModel.create({status: status, address: address, figure: figure, user: user},
+                function (err: any) {
+                    if (err) resolve({error: true, message: err.message});
+                    else resolve({error: false, message: "Saved successfully!"});
+                });
             },
         );
     }
 
     public static async get(userName: string): Promise<ITrackModel | IServiceResult> {
-        let user = UserService.findByName(userName);
+        let user = await UserService.findByName(userName);
         let figure = TrackModel.find({ 'user': user });
         if (figure === null) {
             return { error: true, message: "the track is not found" };
@@ -29,7 +29,7 @@ export default class TrackService {
     }
 
     public static async update(id: string, status: string): Promise<IServiceResult> {
-        let figure = TrackModel.findById(id);
+        let figure = await TrackModel.findById(id);
         if (figure === null) {
             return { error: true, message: "the track is not found" }
         }

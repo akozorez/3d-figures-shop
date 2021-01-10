@@ -1,10 +1,12 @@
-import { IUserModel, UserModel } from '../models/UserModel';
+import { IUserModel, UserModel, UserSchema } from '../models/UserModel';
 import { IServiceResult } from './interfaces';
+import mongoose, { Model } from 'mongoose';
 
 export default class UserService {
-    public static async add(name: string, password: string): Promise<IServiceResult> {
+
+    public static async add(name: string, password: string, role: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         return new Promise(async (resolve) => {
-            await UserModel.create({name: name, password: password},
+            await userModel.create({name: name, password: password, role: role},
                 function (err: any) {
                     if (err) resolve({error: true, message: err.message});
                     else resolve({error: false, message: "Saved successfully!"});
@@ -13,31 +15,31 @@ export default class UserService {
         );
     }
 
-    public static async get(name: string): Promise<IUserModel | IServiceResult> {
-        let user = this.findByName(name);
+    public static async get(name: string, userModel: Model<any> = UserModel): Promise<IUserModel | IServiceResult> {
+        let user = await this.findByName(name, userModel);
         if (user === null) {
             return { error: true, message: "the user is not found" };
         }
         return user;
     }
 
-    public static async update(name: string, password: string): Promise<IServiceResult> {
-        let user = this.findByName(name);
+    public static async update(name: string, password: string, role: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
+        let user = await this.findByName(name, userModel);
         if (user === null) {
             return { error: true, message: "the user is not found" }
         }
         return new Promise(async (resolve) => {
-            await UserModel.updateOne({ name: name }, { password: password })
+            await userModel.updateOne({ name: name }, { password: password, role: role })
                 .exec(function(err: any) {
                     if (err) resolve({ error: true, message: "Update failed!" });
-                    else resolve({ error: false, message: "Update successful!" });
+                    else resolve({ error: false, message: "Update successfully!" });
                 });
         })
     }
 
-    public static async findByName(name: string): Promise<IUserModel | null> {
-        return new Promise(async (resolve, reject) => {
-            await UserModel.findOne({ 'name': name })
+    public static async findByName(name: string, userModel: Model<any> = UserModel): Promise<IUserModel | null> {
+        return new Promise(async (resolve) => {
+            await userModel.findOne({ 'name': name })
                 .exec(function(err: any, user: IUserModel) {
                     if (err) resolve(null);
                     else resolve(user);
@@ -46,9 +48,9 @@ export default class UserService {
         );
     }
 
-    public static async getAll(): Promise<IUserModel[]> {
+    public static async getAll(userModel: Model<any> = UserModel): Promise<IUserModel[]> {
         return new Promise(async (resolve) => {
-            await UserModel.find()
+            await userModel.find()
                 .exec(function(err: any, users: IUserModel[]) {
                     if (err) resolve(null);
                     else resolve(users);
@@ -56,9 +58,9 @@ export default class UserService {
         })
     }
 
-    public static async delete(name: string): Promise<IServiceResult> {
+    public static async delete(name: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         return new Promise(async (resolve) => {
-            await UserModel.deleteOne({ name: name})
+            await userModel.deleteOne({ name: name})
                 .exec(function(err: any) {
                     if (err) resolve({ error: true, message: "Delete failed!" });
                     else resolve({ error: false, message: "Delete successful!" });

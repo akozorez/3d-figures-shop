@@ -5,19 +5,19 @@ import { FigureModel, IFigureModel } from '../models/FigureModel';
 
 export default class FigureService {
     public static async add(name: string, path: string, userName: string): Promise<IServiceResult> {
-        let user = UserService.findByName(userName);
+        let user = await UserService.findByName(userName);
         return new Promise(async (resolve) => {
-                await FigureModel.create({name: name, path: path, user: user},
-                    function (err: any) {
-                        if (err) resolve({error: true, message: err.message});
-                        else resolve({error: false, message: "Saved successfully!"});
-                    });
+            await FigureModel.create({name: name, path: path, user: user},
+                function (err: any) {
+                    if (err) resolve({error: true, message: err.message});
+                    else resolve({error: false, message: "Saved successfully!"});
+                });
             },
         );
     }
 
     public static async get(name: string): Promise<IFigureModel | IServiceResult> {
-        let figure = this.findByName(name);
+        let figure = await this.findByName(name);
         if (figure === null) {
             return { error: true, message: "the figure is not found" };
         }
@@ -36,7 +36,7 @@ export default class FigureService {
     }
 
     public static async update(name: string, newName: string, path: string): Promise<IServiceResult> {
-        let figure = this.findByName(name);
+        let figure = await this.findByName(name);
         if (figure === null) {
             return { error: true, message: "the figure is not found" }
         }

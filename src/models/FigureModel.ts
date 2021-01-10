@@ -5,7 +5,7 @@ import { IFigure } from './interfaces';
 export const FigureSchema: mongoose.Schema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   path: { type: String, required: true },
-  user: { type: UserSchema, ref: 'User', required: true }
+  user: { type: UserSchema, required: true }
 });
 
 export const FigureModel = mongoose.model('Figure', FigureSchema);
