@@ -9,7 +9,6 @@ export default class HttpServer {
     private readonly log: debug.Debugger;
     private readonly port: number;
     private readonly app: express.Express;
-    private mongo: typeof mongoose;
 
     constructor() {
         this.port = process.env.port ? parseInt(process.env.port) : 8080;
@@ -20,7 +19,7 @@ export default class HttpServer {
     }
 
     public async start(): Promise<void> {
-        this.mongo = await mongoose.connect(MONGO_URI, MONGO_CONNECTION_OPTIONS);
+        await mongoose.connect(MONGO_URI, MONGO_CONNECTION_OPTIONS);
         http.createServer(this.app).listen(this.port, this.onListen);
     }
 
