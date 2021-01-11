@@ -4,9 +4,9 @@ import { Model } from 'mongoose';
 
 export default class UserService {
 
-    public static async get(name: string, userModel: Model<any> = UserModel): Promise<IUserModel | IServiceResult> {
+    public static async get(name: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         let user = await this.findByName(name, userModel);
-        if (user) return user;
+        if (user) return { error: false, data: user};
         return { error: true, message: 'the user is not found' };
     }
 
