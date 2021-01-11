@@ -1,4 +1,5 @@
 export type IServiceResult = {
     error: boolean;
-    message: string;
+    message?: string;
+    data?: any;
 }

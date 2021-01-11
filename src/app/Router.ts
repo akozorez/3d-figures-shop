@@ -10,6 +10,7 @@ export default class Router {
         router.get('*', ErrorController.notFound);
 
         router.post('/reg', AuthController.reg);
+        router.post('/login', AuthController.logIn);
         return router;
     }
 }

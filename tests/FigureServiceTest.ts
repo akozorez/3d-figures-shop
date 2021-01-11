@@ -38,9 +38,9 @@ it('test get all', () => {
 
 it('test get exist figure', () => {
     return FigureService.get('figure', FigureModelTest)
-        .then((result: IFigureModel) => {
-            assert.property(result, 'name');
-            assert.property(result, 'path');
+        .then((result: IServiceResult) => {
+            assert.property(result.data, 'name');
+            assert.property(result.data, 'path');
         });
 });
 
