@@ -1,7 +1,7 @@
 html, body {
     min-height: 100vh;
     min-width: 100vw;
-    overflow-y: hidden;
+    overflow-x: hidden;
     background: #f5e9e2;
 }
 
@@ -26,11 +26,16 @@ a, a:hover, a:active {
     color: #ecf0f1;
 }
 
+.info h3 {
+    text-align: left;
+}
+
 .info .container .row {
-    min-height: calc(100vh - 140px);
+    min-height: calc(50vh - 140px);
 }
 
 .how-we-work {
+
 }
 
 .from-what {
@@ -106,4 +111,62 @@ ul li {
     background-image: url('../img/order.png');
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+h3 {
+    text-align: center;
+    margin: 45px 0;
+
+}
+
+.info-card {
+    background: #ecf0f1;
+    height: 100%;
+}
+
+.info-card img {
+    display: block;
+    width: 100%;
+    height: 270px;
+    margin: 0px auto;
+}
+
+.info-card p {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.feature-1 {
+    background-image: url('../img/FDM@1X.png');
+    width: 256px;
+    height: 256px;
+    background-size: contain;
+}
+
+.feature-2 {
+    background-image: url('../img/SLA@1X.png');
+    width: 256px;
+    height: 256px;
+    background-size: contain;
+}
+
+.feature-3 {
+    background-image: url('../img/SLS_2@1X.png');
+    width: 256px;
+    height: 256px;
+    background-size: contain;
+}
+
+.material-1 {
+    background-image: url("../img/Plastics-1@1X.png");
+    width: 256px;
+    height: 256px;
+    background-size: contain;
+}
+
+.material-2 {
+    background-image: url("../img/Resin-1@1X.png");
+    width: 256px;
+    height: 256px;
+    background-size: contain;
 }
