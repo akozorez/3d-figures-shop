@@ -1,8 +1,8 @@
 import * as dotenv from 'dotenv';
 import { join } from 'path';
 // ENVIRONMENT
-let envPath = join(__dirname, '..', '..', !process.env.DEV ? '.env' : '.env-example');
-const env = dotenv.config({ path: envPath }).parsed;
+let env = process.env.DEV ? dotenv.config({ path: join(__dirname, '..', '..', '.env-example') }).parsed :
+    dotenv.config().parsed;
 const {
     MONGO_USER, MONGO_PASSWORD, MONGO_DBNAME, MONGO_ADDRESS,
 } = env;
