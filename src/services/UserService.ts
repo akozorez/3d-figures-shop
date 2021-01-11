@@ -1,6 +1,7 @@
 import { IUserModel, UserModel } from '../models/UserModel';
 import { IServiceResult } from './interfaces';
 import { Model } from 'mongoose';
+import * as QueryString from 'querystring';
 
 export default class UserService {
 

@@ -1,18 +1,14 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import UserService from '../services/UserService';
-import { ERROR_VIEW, SERVER_SIDE_ERROR, TITLE } from '../app/Const';
 import { SessionRequest } from '../app/interfaces';
-import { IUserModel } from '../models/UserModel';
 import { IServiceResult } from '../services/interfaces';
+import TrackService from '../services/TrackService';
 
 export default class AuthController {
     public static async reg(req: SessionRequest, res: Response) {
         let userName = req.body.userName;
         let password = req.body.password;
-        console.log(userName);
-        console.log(password);
         let result = await UserService.add(userName, password);
-        console.log(result);
         if (result.error) {
             return res.status(400)
                 .json(result);
@@ -40,10 +36,33 @@ export default class AuthController {
     }
 
     public static async logOut(req: SessionRequest, res: Response) {
-        let _username = req.body.username;
-        req.session.logined = false;
-        req.session.name = _username;
+        if (req.session.logined) {
+            req.session.logined = false;
+        }
         return res.redirect('/');
     }
 
+    public static async cabinet(req: SessionRequest, res: Response) {
+        let username = req.session.name;
+        let result:IServiceResult = await UserService.get(username);
+        const {error, data} = result;
+        let user = data;
+        if (error) {
+            return res.redirect('/');
+        }
+        switch (user.role) {
+            case 'user': {
+                let data = TrackService.get(username);
+                return res.render(`views/${user.role}.cabinet`, data);
+            }
+            case 'admin': {
+                let data = UserService.getAll();
+                return res.render(`views/${user.role}.cabinet`, data);
+            }
+            case 'manager': {
+                let data = TrackService.getAll();
+                return res.render(`views/${user.role}.cabinet`, data);
+            }
+        }
+    }
 }

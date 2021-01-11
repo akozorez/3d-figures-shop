@@ -32,8 +32,8 @@ it('test get tracks by user', () => {
 });
 
 it('test update tracks', async () => {
-    let tracks = await TrackService.get('manager', TrackModelTest, UserModelTest)
-    let id = 0;
+    let tracks = await TrackService.get('manager', TrackModelTest, UserModelTest);
+    let id;
     for (const track of tracks) {
         id = track._id;
     }
