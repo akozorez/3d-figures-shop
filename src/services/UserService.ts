@@ -20,7 +20,7 @@ export default class UserService {
         });
     }
 
-    public static async add(name: string, password: string, role: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
+    public static async add(name: string, password: string, role: string = 'user', userModel: Model<any> = UserModel): Promise<IServiceResult> {
         return new Promise(async (resolve) => {
                 await userModel.create({ name: name, password: password, role: role },
                     function(err: any) {
