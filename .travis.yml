@@ -9,7 +9,7 @@ install:
   - npm ci
 
 script:
-  - npm run test
+  - npm run test:travis
 
 notifications:
   email: false

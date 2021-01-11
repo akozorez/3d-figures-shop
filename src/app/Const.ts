@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv';
 import { join } from 'path';
 // ENVIRONMENT
-const env = dotenv.config().parsed;
+let envPath = join(__dirname, '..', '..', !process.env.DEV ? '.env' : '.env-example');
+const env = dotenv.config({ path: envPath }).parsed;
 const {
     MONGO_USER, MONGO_PASSWORD, MONGO_DBNAME, MONGO_ADDRESS,
 } = env;
@@ -11,7 +12,7 @@ export const MONGO_URI = 'mongodb+srv://' + MONGO_USER + ':' + MONGO_PASSWORD +
 export const MONGO_SETTINGS = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
 };
 // Application
 export const TITLE = '3d-figures-shop John Doe';
