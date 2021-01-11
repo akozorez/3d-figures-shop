@@ -36,9 +36,9 @@ export default class AuthController {
     }
 
     public static async logOut(req: SessionRequest, res: Response) {
-        let _username = req.body.username;
-        req.session.logined = false;
-        req.session.name = _username;
+        if (req.session.logined) {
+            req.session.logined = false;
+        }
         return res.redirect('/');
     }
 
@@ -53,15 +53,15 @@ export default class AuthController {
         switch (user.role) {
             case 'user': {
                 let data = TrackService.get(username);
-                return res.json(data).render(`views/${user.role}.cabinet`);
+                return res.render(`views/${user.role}.cabinet`, data);
             }
             case 'admin': {
                 let data = UserService.getAll();
-                return res.json(data).render(`views/${user.role}.cabinet`);
+                return res.render(`views/${user.role}.cabinet`, data);
             }
             case 'manager': {
                 let data = TrackService.getAll();
-                return res.json(data).render(`views/${user.role}.cabinet`);
+                return res.render(`views/${user.role}.cabinet`, data);
             }
         }
     }

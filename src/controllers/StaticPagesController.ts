@@ -2,6 +2,9 @@ import { SessionRequest } from '../app/interfaces';
 import { Response } from 'express';
 
 export default class StaticPagesController {
+    public static async create(req: SessionRequest, res: Response) {
+        return res.render('create');
+    }
     public static async login(req: SessionRequest, res: Response) {
         return res.render('login');
     }

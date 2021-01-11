@@ -24,10 +24,12 @@ export default class Router {
         router.get('/models', StaticPagesController.models);
         router.get('/register', StaticPagesController.register);
         router.get('/upload', StaticPagesController.upload);
+        router.get('/create', StaticPagesController.create)
 
         //UserController
         router.post('/changeRole/:name', UserController.changeRole);
         router.post('/changeStatus/:trackId', UserController.changeStatus);
+        router.post('/cart', UserController.postCart);
         return router;
     }
 }
