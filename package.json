@@ -19,7 +19,8 @@
     "all:win": "cls && npm run remove:win && npm run build && npm run copy:win && npm run start:win",
     "test": "mocha -r ts-node/register ./tests/FullTests.ts",
     "test:builded": "mocha ./build/tests/*.js",
-    "test:travis": "DEV=true mocha -r ts-node/register ./tests/FullTests.ts"
+    "test:travis": "DEV=true mocha -r ts-node/register ./tests/FullTests.ts",
+    "coverage": "istanbul cover -e ./tests/FullTests.ts _mocha -- --compilers ts:ts-node/register"
   },
   "keywords": [],
   "author": "Alexandr Kozorez",
@@ -45,6 +46,7 @@
     "@types/mongoose": "^5.10.3",
     "chai": "^4.2.0",
     "codecov": "^3.8.1",
+    "istanbul": "^0.4.5",
     "mocha": "^8.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
