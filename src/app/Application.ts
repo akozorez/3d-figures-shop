@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import { IDebugger, Express, IApplication } from './interfaces';
 import { MONGO_URI, MONGO_SETTINGS, APP_SETTINGS, PORT, OPTION_FORMATTER, HANDLER_FORMATTER } from './Const';
 import Middleware from './Middleware';
+import UserService from '../services/UserService';
 
 export default class Application implements IApplication {
     private readonly log: IDebugger;
@@ -25,7 +26,6 @@ export default class Application implements IApplication {
     }
 
     public async start(): Promise<http.Server> {
-
         return new Promise(async (resolve, reject) => {
             try {
                 await mongoose.connect(MONGO_URI, MONGO_SETTINGS);

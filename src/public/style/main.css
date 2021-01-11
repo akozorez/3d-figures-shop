@@ -9,6 +9,12 @@ p {
     margin: 0;
 }
 
+a, a:hover, a:active {
+    text-decoration: none;
+    color: inherit;
+    border: none;
+}
+
 .header-red {
     background: #cf172b;
     color: #ecf0f1;
@@ -20,6 +26,10 @@ p {
     color: #ecf0f1;
 }
 
+.info .container .row {
+    min-height: calc(100vh - 140px);
+}
+
 .how-we-work {
 }
 
@@ -27,11 +37,6 @@ p {
 
 }
 
-a, a:hover, a:active {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 600;
-}
 
 .logo {
     font-weight: 600;
@@ -41,4 +46,64 @@ a, a:hover, a:active {
 
 .header-menu a {
     margin: 0 .25rem;
+}
+
+ul li {
+    list-style: none;
+}
+
+.btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:active, a.btn.btn-primary:focus {
+    background: #cf172b !important;
+    color: #ecf0f1 !important;
+    border: none;
+    box-shadow: none !important;
+}
+
+.btn.btn-secondary, .btn.btn-secondary:hover, .btn.btn-secondary:active, a.btn.btn-secondary:focus {
+    background: #ecf0f1 !important;
+    color: #cf172b !important;
+    border: none;
+    box-shadow: none !important;
+}
+
+.quality {
+    margin: 15px 0;
+}
+
+.quality:before {
+    content: '';
+    display: inline-block;
+    clear: both;
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-right: 5px;
+}
+
+.quality span {
+    line-height: 32px;
+}
+
+.quality-1:before {
+    background-image: url('../img/block.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.quality-2:before {
+    background-image: url('../img/shopping-bag.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.quality-3:before {
+    background-image: url('../img/3d-print.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.quality-4:before {
+    background-image: url('../img/order.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }

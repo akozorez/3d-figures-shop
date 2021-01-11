@@ -7,6 +7,7 @@
     "remove": "rm -rf build",
     "remove:win": "rd /s /q build",
     "build": "tsc --build --force tsconfig.json",
+    "start": "DEBUG=Application,Middleware node ./build/src/main.js",
     "start:win": "node build/src/main.js",
     "copy": "cp -r ./src/views ./build/src && cp -r ./src/public ./build/src && npm run copy:bootstrap",
     "copy:bootstrap": "cp ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/src/public/style",
