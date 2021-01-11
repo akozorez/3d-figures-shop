@@ -37,7 +37,7 @@ export default class UserService {
 
     public static async findByName(name: string, userModel: Model<any> = UserModel): Promise<IUserModel | null> {
         return new Promise(async (resolve) => {
-            await userModel.findOne({ 'name': name })
+            await userModel.findOne({ name: name })
                 .exec(function(err: any, user: IUserModel) {
                     if (err) resolve(null);
                     else resolve(user);

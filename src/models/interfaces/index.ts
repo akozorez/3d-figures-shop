@@ -9,11 +9,21 @@ export interface IUser extends Document {
 export interface IFigure extends Document {
     name: string;
     path: string;
+    previewPath: string;
     user: IUser;
 }
 
 export interface ITrack extends Document {
     status: string;
+    address: string;
     figure: IFigure;
     user: IUser;
 }
+
+export enum statuses {
+    'Going to', 'Assembled', 'Preparing to ship', 'Delivered', 'Received'
+}
+
+export type IStatusInterface = {
+    [key in statuses]: boolean;
+};
