@@ -18,7 +18,8 @@
     "all": "clear && npm run remove && npm run build && npm run copy && npm run start",
     "all:win": "cls && npm run remove:win && npm run build && npm run copy:win && npm run start:win",
     "test": "mocha -r ts-node/register ./tests/FullTests.ts",
-    "test:builded": "mocha ./build/tests/*.js"
+    "test:builded": "mocha ./build/tests/*.js",
+    "test:travis": "DEV=true mocha -r ts-node/register ./tests/FullTests.ts"
   },
   "keywords": [],
   "author": "Alexandr Kozorez",
