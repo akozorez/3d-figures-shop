@@ -11,6 +11,8 @@ import {
 import { ERROR_FORMATTER, PUBLIC_FOLDER, REQUEST_FORMATTER, SERVER_SIDE_ERROR } from './Const';
 import * as debug from 'debug';
 import Router from './Router';
+import * as session from 'express-session';
+
 
 export default class Middleware implements IMiddleware {
     private readonly log: IDebugger;
@@ -18,6 +20,15 @@ export default class Middleware implements IMiddleware {
     private readonly parser = bodyParser.urlencoded({ extended: true });
     private readonly web = Router.getRouter();
     private readonly static = staticMiddleware(PUBLIC_FOLDER);
+    private readonly session = session({
+        secret: 'test',
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            secure: false,
+            maxAge: 60000
+        }
+    })
 
     constructor() {
         this.log = debug(this.constructor.name);
@@ -26,6 +37,7 @@ export default class Middleware implements IMiddleware {
             this.requestMiddleware = this.requestMiddleware.bind(this),
             this.parser,
             this.static,
+            this.session,
             this.web,
         ];
     }

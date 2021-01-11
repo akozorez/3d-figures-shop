@@ -4,6 +4,8 @@ import ErrorController from './ErrorController';
 
 export default class MainController {
     public static index(req: Request, res: Response) {
+        // @ts-ignore
+        req.session.aasdas = 123;
         return res.render('main/index', { title: TITLE });
     }
 
