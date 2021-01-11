@@ -51,9 +51,9 @@ it('test update user', () => {
 
 it('test get exist user with role user', () => {
     return UserService.get('user', UserModelTest)
-        .then((result: IUserModel) => {
-            assert.equal(result.name, 'user');
-            assert.equal(result.role, 'user');
+        .then((result: IServiceResult) => {
+            assert.equal(result.data.name, 'user');
+            assert.equal(result.data.role, 'user');
         });
 });
 
@@ -66,9 +66,9 @@ it('test remove user', () => {
 
 it('test get exist user with role manager', () => {
     return UserService.get('manager', UserModelTest)
-        .then((result: IUserModel) => {
-            assert.equal(result.name, 'manager');
-            assert.equal(result.role, 'manager');
+        .then((result: IServiceResult) => {
+            assert.equal(result.data.name, 'manager');
+            assert.equal(result.data.role, 'manager');
         });
 });
 

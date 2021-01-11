@@ -4,9 +4,9 @@ import { Model } from 'mongoose';
 
 export default class UserService {
 
-    public static async get(name: string, userModel: Model<any> = UserModel): Promise<IUserModel | IServiceResult> {
+    public static async get(name: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         let user = await this.findByName(name, userModel);
-        if (user) return user;
+        if (user) return { error: false, data: user};
         return { error: true, message: 'the user is not found' };
     }
 
@@ -20,7 +20,7 @@ export default class UserService {
         });
     }
 
-    public static async add(name: string, password: string, role: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
+    public static async add(name: string, password: string, role: string = 'user', userModel: Model<any> = UserModel): Promise<IServiceResult> {
         return new Promise(async (resolve) => {
                 await userModel.create({ name: name, password: password, role: role },
                     function(err: any) {

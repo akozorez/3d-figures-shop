@@ -30,3 +30,10 @@ export {
     IMiddleware, MiddlewareHandler, RequestHandler, ErrorHandler,
     getClassProperty, staticMiddleware
 };
+
+export interface ISession {
+    logined: boolean;
+    name: string;
+}
+
+export type SessionRequest = Request & {session:ISession};

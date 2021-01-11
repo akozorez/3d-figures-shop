@@ -18,12 +18,12 @@ export default class FigureService {
         );
     }
 
-    public static async get(name: string, figureModel: Model<any> = FigureModel): Promise<IFigureModel | IServiceResult> {
+    public static async get(name: string, figureModel: Model<any> = FigureModel): Promise<IServiceResult> {
         let figure = await this.findByName(name, figureModel);
         if (figure === null) {
             return { error: true, message: "the figure is not found" };
         }
-        return figure;
+        return { error: true, data: figure };
     }
 
     public static async findByName(name: string, figureModel: Model<any> = FigureModel): Promise<IFigureModel | null> {
