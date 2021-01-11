@@ -33,7 +33,7 @@ export default class TrackService {
         return figures;
     }
 
-    public static async update(id: number, status: statuses, trackModel: Model<any> = TrackModel): Promise<IServiceResult> {
+    public static async update(id: any, status: statuses, trackModel: Model<any> = TrackModel): Promise<IServiceResult> {
         let figure = await trackModel.findById(id);
         if (figure === null) {
             return { error: true, message: "the track is not found" }
