@@ -11,5 +11,8 @@ install:
 script:
   - npm run test:travis
 
+after_success:
+  - ./node_modules/.bin/codecov --token=8994aa7e-b555-4816-875f-57b555619ee6
+
 notifications:
   email: false
