@@ -11,6 +11,7 @@ export const MONGO_URI = 'mongodb+srv://' + MONGO_USER + ':' + MONGO_PASSWORD +
 export const MONGO_SETTINGS = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
 };
 // Application
 export const TITLE = '3d-figures-shop John Doe';

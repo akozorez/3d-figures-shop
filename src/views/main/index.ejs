@@ -1,18 +1,101 @@
 <%- include('../parts/header.ejs') -%>
 
-<div class='container info'>
-    <div class='row'>
-        <div class='col-md-6 col-xs-12'>
-            <h3>Online print for 3d figures</h3>
-            <a href='/upload'>Upload a model</a>
-            <a href='/create'>Create a model</a>
+<div class='container-fluid info'>
+    <div class='container w-100 h-100'>
+        <div class='row d-flex justify-content-center align-items-center flex-row'>
+            <div class='col-md-6 col-xs-12'>
+                <h3>Your favourite online-service<br /> for print 3d figures</h3>
+                <p>Print your needs</p>
+                <div class='float-left mt-3'>
+                    <a class="btn btn-secondary" href='/upload'>Upload a model</a>
+                    <a class="btn btn-primary" href='/create'>Create a model</a>
+                </div>
+            </div>
+            <div class='col-md-6 col-xs-12'>
+                <ul>
+                    <li class='quality quality-1'>
+                        <span>Upload model file in available format or create it from scratch</span>
+                    </li>
+                    <li class='quality quality-2'>
+                        <span>Order a print online with postomate service</span>
+                    </li>
+                    <li class='quality quality-3'>
+                        <span>We will print in a short time</span>
+                    </li>
+                    <li class='quality quality-4'>
+                        <span>Fast and furious delivery</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class='col-md-6 col-xs-12'>
-            <ul>
-                <li class='quality quality-1'>
-                    <span>Upload model file in CAD/Blender format or create it from scratch</span>
-                </li>
-            </ul>
+    </div>
+</div>
+
+<div class='container-fluid'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-12'>
+                <h3>About our print technology</h3>
+            </div>
+            <div class='col-xs-12 col-md-4'>
+                <div class='info-card'>
+                    <div class='img-block'>
+                        <img src='../img/FDM@1X.png'>
+                    </div>
+                    <p>Print with melting method</p>
+                </div>
+            </div>
+            <div class='col-xs-12 col-md-4'>
+                <div class='info-card'>
+                    <div class='img-block'>
+                        <img src='../img/SLD@1X.png'>
+                    </div>
+                    <p>Laser stereolithography</p>
+                </div>
+            </div>
+            <div class='col-xs-12 col-md-4'>
+                <div class='info-card'>
+                    <div class='img-block'>
+                        <img src='../img/SLS_2@1X.png'>
+                    </div>
+                    <p>Selective laser caking</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class='container-fluid'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-12'>
+                <h3>About our print materials</h3>
+            </div>
+            <div class='col-xs-12 col-md-4'>
+                <div class='info-card'>
+                    <div class='img-block'>
+                        <img src='../img/Plastics-1@1X.png'>
+                    </div>
+                    <p>Nylon PA12, TPU, SLS, HP jet fusion</p>
+                </div>
+            </div>
+            <div class='col-xs-12 col-md-4'>
+                <div class='info-card'>
+                    <div class='img-block'>
+                        <img src='../img/Resin-1@1X.png'>
+                    </div>
+                    <p>VeroWhite, RPU, EPU, Polyjet, Carbon DLS</p>
+                </div>
+            </div>
+            <div class='col-xs-12 col-md-4'>
+                <div class='info-card'>
+                    <div class='img-block'>
+                        <img src='../img/SLS_2@1X.png'>
+                    </div>
+                    <p>Steel, aluminum, titanium</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
