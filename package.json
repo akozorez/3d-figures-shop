@@ -17,7 +17,7 @@
     "copy:win": "npm run copy:views && npm run copy:public && npm run copy:win:bootstrap",
     "all": "clear && npm run remove && npm run build && npm run copy && npm run start",
     "all:win": "cls && npm run remove:win && npm run build && npm run copy:win && npm run start:win",
-    "test": "mocha -r ts-node/register tests/*.ts",
+    "test": "mocha -r ts-node/register ./tests/FullTests.ts",
     "test:builded": "mocha ./build/tests/*.js"
   },
   "keywords": [],

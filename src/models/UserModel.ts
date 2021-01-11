@@ -8,5 +8,5 @@ export const UserSchema: mongoose.Schema = new mongoose.Schema({
 });
 
 export const UserModel = mongoose.model('User', UserSchema);
-export const UserTestModel = mongoose.model('UserTest', UserSchema);
+export const UserModelTest = mongoose.model('UserTest', UserSchema);
 export type IUserModel = IUser & mongoose.Document;
