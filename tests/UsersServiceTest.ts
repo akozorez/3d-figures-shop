@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import UserService from '../src/services/UserService';
 import { IUserModel, UserModelTest } from '../src/models/UserModel';
 import { IServiceResult } from '../src/services/interfaces';
+import { roles } from '../src/models/interfaces';
 
 it('test get empty users', () => {
     return UserService.getAll(UserModelTest)
@@ -12,21 +13,21 @@ it('test get empty users', () => {
 });
 
 it('test add user with role user', () => {
-    return UserService.add('user', '123', 'user', UserModelTest)
+    return UserService.add('user', '123', roles.user, UserModelTest)
         .then((result: IServiceResult) => {
             assert.equal(result.error, false);
         });
 });
 
 it('test add same user', () => {
-    return UserService.add('user', '123', 'user', UserModelTest)
+    return UserService.add('user', '123', roles.user, UserModelTest)
         .then((result: IServiceResult) => {
             assert.equal(result.error, true);
         });
 });
 
 it('test add user with role manager', () => {
-    return UserService.add('manager', '123', 'manager', UserModelTest)
+    return UserService.add('manager', '123', roles.manager, UserModelTest)
         .then((result: IServiceResult) => {
             assert.equal(result.error, false);
         });
@@ -43,7 +44,7 @@ it('test get all user', () => {
 });
 
 it('test update user', () => {
-    return UserService.update('user', '1234', 'user', UserModelTest)
+    return UserService.update('user', '1234', roles.user, UserModelTest)
         .then((result: IServiceResult) => {
             assert.equal(result.error, false);
         });
@@ -53,7 +54,7 @@ it('test get exist user with role user', () => {
     return UserService.get('user', UserModelTest)
         .then((result: IServiceResult) => {
             assert.equal(result.data.name, 'user');
-            assert.equal(result.data.role, 'user');
+            assert.equal(result.data.role, roles.user);
         });
 });
 
@@ -68,7 +69,7 @@ it('test get exist user with role manager', () => {
     return UserService.get('manager', UserModelTest)
         .then((result: IServiceResult) => {
             assert.equal(result.data.name, 'manager');
-            assert.equal(result.data.role, 'manager');
+            assert.equal(result.data.role, roles.manager);
         });
 });
 

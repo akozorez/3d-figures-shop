@@ -3,13 +3,12 @@ import { IServiceResult } from './interfaces';
 import UserService from './UserService';
 import { FigureModel, IFigureModel } from '../models/FigureModel';
 import { Model } from "mongoose";
-import { ITrackModel } from '../models/TrackModel';
 
 export default class FigureService {
     public static async add(name: string, path: string, previewPath: string, userName: string, figureModel: Model<any> = FigureModel, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         let user = await UserService.findByName(userName, userModel);
         return new Promise(async (resolve) => {
-            await figureModel.create({name: name, path: path, previewPath: previewPath, user: user},
+            await figureModel.create({name: name, path: path, previewPath: previewPath, username: user.name},
                 function (err: any) {
                     if (err) resolve({error: true, message: err.message});
                     else resolve({error: false, message: "Saved successfully!"});
@@ -23,12 +22,12 @@ export default class FigureService {
         if (figure === null) {
             return { error: true, message: "the figure is not found" };
         }
-        return { error: true, data: figure };
+        return { error: false, data: figure };
     }
 
     public static async findByName(name: string, figureModel: Model<any> = FigureModel): Promise<IFigureModel | null> {
         return new Promise(async (resolve) => {
-                await figureModel.findOne({ 'name': name })
+                await figureModel.findOne({ name: name })
                     .exec(function(err: any, figure: IFigureModel) {
                         if (err) resolve(null);
                         else resolve(figure);
@@ -59,7 +58,7 @@ export default class FigureService {
 
     public static async delete(name: string, figureModel: Model<any> = FigureModel): Promise<IServiceResult> {
         return new Promise(async (resolve) => {
-            await figureModel.deleteOne({ name: name})
+            await figureModel.deleteOne({ name: name })
                 .exec(function(err: any) {
                     if (err) resolve({ error: true, message: "Delete failed!" });
                     else resolve({ error: false, message: "Delete successful!" });

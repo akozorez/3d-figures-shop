@@ -1,0 +1,10 @@
+<%- include('parts/header.ejs') -%>
+<script type="text/javascript">
+    let iframe = document.createElement('iframe');
+    document.body.append(iframe);
+    iframe.src = 'https://threejs.org/editor';
+    iframe.style.minWidth = 'calc(100vw)';
+    iframe.style.minHeight = 'calc(100vh)';
+    iframe.style.border = 'none';
+</script>
+<%- include('parts/footer.ejs') -%>

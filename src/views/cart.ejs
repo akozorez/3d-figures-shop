@@ -1,0 +1,75 @@
+<%- include('parts/header.ejs') -%>
+
+<div class="container-fluid">
+    <div class="row cart-view">
+        <div class="col-12">
+            <h3 class="mb-0">Cart page. <span class="full"></span></h3>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const get = (field) => window.localStorage.getItem(field);
+    const set = (field, value) => window.localStorage.setItem(field, value);
+    const remove = (field) => window.localStorage.removeItem(field);
+    if (!get('count')) set('count', '0');
+    if (!get('actual')) set('actual', '0');
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const count = parseInt(get('count'));
+        let actual = 0;
+        const cart_view = document.querySelectorAll('.cart-view')[0];
+        if (count === 0)
+            cart_view.innerHTML += `<div class="col-12 my-5">
+<span class="d-block text-center">Your cart is empty. Look some models <a href="/models" style="font-weight: 600; color: #4f5d75">here</a>.</span>
+</div>`;
+        else {
+            for (let i = 0; i < count; i++) {
+                const field = `model_${i}`;
+                const current = get(field);
+                if (current) {
+                    actual++;
+                    const outer = document.createElement('div');
+                    outer.classList.add('col-xs-12', 'col-md-4', 'mt-5');
+                    cart_view.append(outer);
+                    const infoCard = document.createElement('div');
+                    infoCard.classList.add('info-card');
+                    outer.append(infoCard);
+                    const imgBlock = document.createElement('div');
+                    imgBlock.classList.add('img-block', 'feature', 'feature-1', 'cart-feature');
+                    infoCard.append(imgBlock);
+                    const infoSpan = document.createElement('span');
+                    infoSpan.classList.add('float-left', 'ml-2', 'mt-2', 'info-span');
+                    infoSpan.innerText = '29.99$';
+                    imgBlock.append(infoSpan);
+                    const innerSpan = document.createElement('span');
+                    innerSpan.classList.add('float-right', 'mt-2', 'mr-2');
+                    imgBlock.append(innerSpan);
+                    const button = document.createElement('button');
+                    button.classList.add('btn', 'btn-secondary', 'cart-button');
+                    button.innerText = 'Remove from cart';
+                    button.onclick = (event) => {
+                        event.preventDefault();
+                        if (get(field)) {
+                            remove(field);
+                            window.location.reload();
+                        }
+                    };
+                    innerSpan.append(button);
+                    const p = document.createElement('p');
+                    p.innerHTML = `${current} <br/> <a href="/model/name" target="_blank" style="font-weight: 600">Click here to preview</a>`;
+                    infoCard.append(p);
+                }
+            }
+            if (!actual) set('count', '0');
+            set('actual', actual.toString());
+            if(actual) {
+                document.querySelector('span.full').innerHTML += `Sum: ${actual * 29.99}$ <a href="/checkout" class="btn btn-primary">Go to checkout</a>`;
+            } else {
+                window.location.reload();
+            }
+        }
+    });
+</script>
+
+<%- include('parts/footer.ejs') -%>

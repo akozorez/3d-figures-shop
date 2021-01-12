@@ -1,0 +1,179 @@
+<%- include('parts/header.ejs') -%>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class='container-fluid info'>
+            <div class='container w-100 h-100'>
+                <div class='row d-flex justify-content-center align-items-center flex-row'>
+                    <div class='col-md-6 col-xs-12 d-flex flex-column align-items-center'>
+                        <div class="user-avatar my-3"><span><%= name[0].toUpperCase() %></span></div>
+                        <p style="font-size: 20px">Username: <%= name %>.
+                            Role: <%= ['user', 'manager', 'admin'][role] %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% if(locals?.userData) if(userData.length) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>My orders</h3>
+                <table class="table table-light table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">TrackId</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Preview</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(let i = 0; i < userData.length; i++) { %>
+                        <tr>
+                            <td scope="row"><%= i + 1 %></td>
+                            <td><%= userData[i]._id %></td>
+                            <td><%= userData[i].figureName %></td>
+                            <td><%= ['Assembled', 'PreShip', 'Delivered', 'Received'][userData[i].status] %></td>
+                            <td><a target="_blank" href="/model/<%= userData[i].figureName %>"
+                                   style="color:#4f5d75; font-weight: 600">Show</a>
+                            </td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<% } else { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>My orders</h3>
+            </div>
+            <div class="col-12 my-1">
+                <span class="d-block text-center">No orders</span>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<% if(locals?.managerData) if(managerData.length) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Tracks</h3>
+                <table class="table table-light table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">TrackId</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Change</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(let i = 0; i < managerData.length; i++) { %>
+                        <tr>
+                            <td scope="row"><%= i + 1 %></td>
+                            <td><%= managerData[i]._id %></td>
+                            <td><%= ['Assembled', 'PreShip', 'Delivered', 'Received'][managerData[i].status] %></td>
+                            <td>
+                                <button onclick=changeStatus('<%= managerData[i]._id %>')
+                                        class='btn btn-secondary'>Next
+                                </button>
+                            </td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.changeStatus = async (id) => {
+            await fetch(`/changeStatus/${id}`, { method: 'POST' })
+                .finally(() => window.location.reload());
+        };
+    </script>
+<% } else { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Tracks</h3>
+            </div>
+            <div class="col-12 my-1">
+                <span class="d-block text-center">No tracks</span>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+
+<% if(locals?.adminData) if(adminData.length) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Users</h3>
+                <table class="table table-light table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Upgrade</th>
+                        <th scope="col">Downgrade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(let i = 0; i < adminData.length; i++) { %>
+                        <tr>
+                            <td scope="row"><%= i + 1 %></td>
+                            <td><%= adminData[i].name %></td>
+                            <td><%= ['user', 'manager', 'admin'][adminData[i].role] %></td>
+                            <td>
+                                <button class='btn btn-secondary' onclick="changeRole('<%= adminData[i].name %>', '+')"
+                                        style="color:#4f5d75; font-weight: 600">+
+                                </button>
+                            <td>
+                                <button class='btn btn-secondary' onclick="changeRole('<%= adminData[i].name %>', '-')"
+                                        style="color:#4f5d75; font-weight: 600">-
+                                </button>
+                            </td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.changeRole = async (name, sign) => {
+            if (window.confirm('Are you sure what about are you doing?')) {
+                let headers = new Headers();
+                headers.append('Content-Type', 'application/json');
+                await fetch(`/changeRole/${name}`, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        sign: sign,
+                    }),
+                }).finally(() => window.location.reload());
+            }
+        };
+    </script>
+<% } else { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Users</h3>
+            </div>
+            <div class="col-12 my-1">
+                <span class="d-block text-center">No users</span>
+            </div>
+        </div>
+    </div>
+<% } %>
+<%- include('parts/footer.ejs') -%>

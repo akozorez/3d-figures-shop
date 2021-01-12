@@ -1,0 +1,54 @@
+<%- include('parts/header.ejs') -%>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-0">Checkout page</h3>
+        </div>
+        <div class="col-6 d-block m-auto">
+            <form method='POST' action='/checkout'>
+                <ul class="checkout-order d-block text-center"></ul>
+                <span class="d-block text-center mb-2">Select the address of existed postomat</span>
+                <input type='text' name='figures' hidden>
+                <select class="form-select d-block m-auto" name='address'>
+                    <option value="NZHNY418. Gagarin str. 23" selected>NZHNY418. Gagarin str. 23</option>
+                    <option value="NZHNY263. Gorkovskaya str. 40">NZHNY263. Gorkovskaya str. 40</option>
+                    <option value="NZHNY075. Moscow highway">NZHNY075. Moscow highway</option>
+                </select>
+                <button class="btn btn-primary d-block ml-auto mr-auto mt-2 mb-2">Pay via one click</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const get = (field) => window.localStorage.getItem(field);
+    const set = (field, value) => window.localStorage.setItem(field, value);
+    const remove = (field) => window.localStorage.removeItem(field);
+    window.addEventListener('DOMContentLoaded', () => {
+        const list = document.querySelector('.checkout-order');
+        let figures = [];
+        const count = parseInt(get('count'));
+        let actual = 0;
+        if (!get('count')) set('count', '0');
+        if (!get('actual')) set('actual', '0');
+        if (parseInt(get('actual')) === 0) {
+            window.location.href = '/cart';
+        } else {
+            for (let i = 0; i < count; i++) {
+                const field = `model_${i}`;
+                const current = get(field);
+                if(current){
+                    actual++;
+                    const li = document.createElement('li');
+                    li.innerHTML = `${i+1}. ${current}. Price: 29.99$`;
+                    list.append(li);
+                    figures.push(current);
+                }
+            }
+            const li = document.createElement('li');
+            li.innerHTML = `Total: ${actual*29.99}$`;
+            list.append(li);
+        }
+        document.querySelector('input[hidden]').value = figures;
+    });
+</script>
+<%- include('parts/footer.ejs') -%>

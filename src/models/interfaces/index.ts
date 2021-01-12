@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 export interface IUser extends Document {
     name: string;
     password: string;
-    role: string;
+    role: number;
 }
 
 export interface IFigure extends Document {
@@ -14,15 +14,20 @@ export interface IFigure extends Document {
 }
 
 export interface ITrack extends Document {
-    status: string;
+    status: number;
     address: string;
     figure: IFigure;
     user: IUser;
 }
 
 export enum statuses {
-    'Going to', 'Assembled', 'Preparing to ship', 'Delivered', 'Received'
+    'Assembled', 'PreShip', 'Delivered', 'Received'
 }
+
+export enum roles {
+    'user', 'manager', 'admin'
+}
+
 
 export type IStatusInterface = {
     [key in statuses]: boolean;

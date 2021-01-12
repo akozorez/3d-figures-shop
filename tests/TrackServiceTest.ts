@@ -26,7 +26,7 @@ it('test get tracks by user', () => {
         .then((result: ITrackModel[]) => {
             for (const track of result) {
                 assert.equal(track.address, 'Lobach');
-                assert.equal(track.status, 'Собирается');
+                assert.equal(track.status, statuses.Assembled);
             }
         });
 });

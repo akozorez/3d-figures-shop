@@ -1,13 +1,13 @@
 import { IUserModel, UserModel } from '../models/UserModel';
 import { IServiceResult } from './interfaces';
 import { Model } from 'mongoose';
-import * as QueryString from 'querystring';
+import { roles, statuses } from '../models/interfaces';
 
 export default class UserService {
 
     public static async get(name: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         let user = await this.findByName(name, userModel);
-        if (user) return { error: false, data: user};
+        if (user) return { error: false, data: user };
         return { error: true, message: 'the user is not found' };
     }
 
@@ -21,7 +21,7 @@ export default class UserService {
         });
     }
 
-    public static async add(name: string, password: string, role: string = 'user', userModel: Model<any> = UserModel): Promise<IServiceResult> {
+    public static async add(name: string, password: string, role: number = roles.user, userModel: Model<any> = UserModel): Promise<IServiceResult> {
         return new Promise(async (resolve) => {
                 await userModel.create({ name: name, password: password, role: role },
                     function(err: any) {
@@ -32,17 +32,51 @@ export default class UserService {
         );
     }
 
-    public static async update(name: string, password: string, role: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
-        let user = await this.findByName(name, userModel);
-        if (user === null) {
+    public static async update(name: string, password: string, role: number = roles.user, userModel: Model<any> = UserModel): Promise<IServiceResult> {
+        if (await this.findByName(name, userModel) === null)
             return { error: true, message: 'the user is not found' };
-        }
         return new Promise(async (resolve) => {
             await userModel.updateOne({ name: name }, { password: password, role: role })
                 .exec(function(err: any) {
                     if (err) resolve({ error: true, message: 'Update failed!' });
                     else resolve({ error: false, message: 'Update successfully!' });
                 });
+        });
+    }
+
+    public static async updateRole(name: string, sign: string, userModel: Model<any> = UserModel): Promise<IServiceResult> {
+        let user = await this.findByName(name, userModel);
+        if (user === null) {
+            return { error: true, message: 'the user is not found' };
+        }
+        return new Promise(async (resolve) => {
+            switch (sign) {
+                case '+':
+                    if (user.role < roles.admin) {
+                        await userModel.updateOne({ name: name }, { role: user.role + 1 })
+                            .exec(function(err: any) {
+                                if (err) resolve({ error: true, message: 'Upgrade failed! '+ err.message });
+                                else resolve({ error: false, message: 'Upgrade successfully!' });
+                            });
+                    } else {
+                        resolve({ error: true, message: 'Upgrade failed! Is admin' });
+                    }
+                    break;
+                case '-':
+                    if (user.role > roles.user) {
+                        await userModel.updateOne({ name: name }, { role: user.role - 1 })
+                            .exec(function(err: any) {
+                                if (err) resolve({ error: true, message: 'Downgrade failed! ' + err.message });
+                                else resolve({ error: false, message: 'Downgrade successfully!' });
+                            });
+                    } else {
+                        resolve({ error: true, message: 'Downgrade failed! Is user' });
+                    }
+                    break;
+                default:
+                    resolve({ error: true, message: 'WHAT?' });
+                    break;
+            }
         });
     }
 

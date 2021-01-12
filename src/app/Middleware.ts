@@ -13,29 +13,30 @@ import * as debug from 'debug';
 import Router from './Router';
 import * as session from 'express-session';
 
-
 export default class Middleware implements IMiddleware {
     private readonly log: IDebugger;
     private readonly _handlers: MiddlewareHandler[];
-    private readonly parser = bodyParser.urlencoded({ extended: true });
+    private readonly jsonParser = bodyParser.json();
+    private readonly urlencodedParser = bodyParser.urlencoded({ extended: true });
     private readonly web = Router.getRouter();
     private readonly static = staticMiddleware(PUBLIC_FOLDER);
     private readonly session = session({
         secret: 'test',
-        resave: false,
+        resave: true,
         saveUninitialized: true,
         cookie: {
             secure: false,
-            maxAge: 60000
-        }
-    })
+            maxAge: 1000 * 60 * 60,
+        },
+    });
 
     constructor() {
         this.log = debug(this.constructor.name);
         this._handlers = [
+            this.urlencodedParser,
+            this.jsonParser,
             this.errorMiddleware = this.errorMiddleware.bind(this),
             this.requestMiddleware = this.requestMiddleware.bind(this),
-            this.parser,
             this.static,
             this.session,
             this.web,

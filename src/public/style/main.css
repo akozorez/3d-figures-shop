@@ -1,7 +1,4 @@
 html, body {
-    min-height: 100vh;
-    min-width: 100vw;
-    overflow-x: hidden;
     background: #f5e9e2;
 }
 
@@ -120,7 +117,8 @@ h3 {
 }
 
 .info-card {
-    background: #ecf0f1;
+    background: #fff;
+    border-radius: .5rem;
     height: 100%;
 }
 
@@ -132,41 +130,124 @@ h3 {
 }
 
 .info-card p {
-    margin: 15px 0;
+    padding: 35px 0;
     text-align: center;
+}
+
+.models .info-card p {
+    background: #ecf0f1;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+
+.feature {
+
 }
 
 .feature-1 {
     background-image: url('../img/FDM@1X.png');
-    width: 256px;
+    width: 100%;
     height: 256px;
-    background-size: contain;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
 }
 
 .feature-2 {
     background-image: url('../img/SLA@1X.png');
-    width: 256px;
+    width: 100%;
     height: 256px;
-    background-size: contain;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
 }
+
 
 .feature-3 {
     background-image: url('../img/SLS_2@1X.png');
-    width: 256px;
+    width: 100%;
     height: 256px;
-    background-size: contain;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+.checkout-order{
+    padding-inline-start: 0px;
+    margin: 15px auto;
+}
+.cart-feature {
+    background: url(../img/3d.svg) no-repeat center center;
+    background-size: 128px
+}
+
+.cart-button {
+    color: #4f5d75 !important
+}
+
+.info-span {
+    line-height: 36px;
+    font-weight: 600;
+    color: #4f5d75;
+    border-radius: .25rem;
+    padding: 0 10px;
 }
 
 .material-1 {
     background-image: url("../img/Plastics-1@1X.png");
-    width: 256px;
+    width: 100%;
     height: 256px;
-    background-size: contain;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
 }
+
 
 .material-2 {
     background-image: url("../img/Resin-1@1X.png");
-    width: 256px;
+    width: 100%;
     height: 256px;
-    background-size: contain;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+.material-1, .material-2 {
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+
+.form input[type="text"].form-control, .form input[type="password"].form-control {
+    background: transparent;
+    color: #ecf0f1;
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+}
+
+.form input[type="text"].form-control::placeholder, .form input[type="password"].form-control::placeholder {
+    color: #ecf0f1;
+}
+
+.user-avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50rem;
+    background: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-avatar span {
+    font-size: 50px;
+    font-weight: 600;
+    color: #4f5d75;
+    cursor: pointer;
 }

@@ -1,17 +1,13 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { TITLE } from '../app/Const';
-import ErrorController from './ErrorController';
+import { SessionRequest } from '../app/interfaces';
 
 export default class MainController {
-    public static index(req: Request, res: Response) {
-        return res.render('main/index', { title: TITLE });
-    }
-
-    public static test(req: Request, res: Response) {
-        try {
-            throw new Error('test');
-        } catch (e) {
-            return ErrorController.serverError(req, res);
-        }
+    public static index(req: SessionRequest, res: Response) {
+        return res.render('main/index', {
+            title: `${TITLE} Create a model`,
+            logined: req.session.logined,
+            name: req.session.name
+        });
     }
 }

@@ -1,0 +1,53 @@
+<%- include('parts/header.ejs') -%>
+<div class="container-fluid" style="min-height: 100vh">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-0">Register page</h3>
+        </div>
+        <div class="col-6 ml-auto mr-auto pt-3 pb-3 mt-5 mb-5 jumbotron info">
+            <form class='form'>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1"
+                           placeholder="Enter username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <a href="/login" class="btn btn-secondary">Login</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementsByTagName('form')[0];
+        if (form) {
+            form.onsubmit = async (event) => {
+                event.preventDefault();
+                let headers = new Headers();
+                headers.append('Content-Type', 'application/json');
+                const result = await fetch('/register', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        username: document.querySelector('input[name="username"]').value,
+                        password: document.querySelector('input[name="password"]').value
+                    })
+                })
+                .then(res => res.json())
+                .catch(e => e)
+                if(result?.error) {
+                    alert('Login exist');
+                } else {
+                    alert(result?.message);
+                    window.location.href = '/login';
+                }
+            }
+        }
+    });
+</script>
+<%- include('parts/footer.ejs') -%>
