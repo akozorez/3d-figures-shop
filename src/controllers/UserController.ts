@@ -49,8 +49,7 @@ export default class UserController {
             let username = req.session.name;
             let previewPath = './img/3d.svg';
             let path = `./uploads/${req.file.filename}`;
-            const added = await FigureService.add(figureName, path, previewPath, username);
-            console.log(added);
+            await FigureService.add(figureName, path, previewPath, username);
             return res.redirect(`/model/${figureName}`);
         } else {
             return res.redirect('/models');
@@ -60,7 +59,6 @@ export default class UserController {
     public static async postCheckout(req: SessionRequest, res: Response) {
         let address = req.body.address;
         let figures: string[] = req.body.figures.split(',');
-        console.log(figures);
         for await (const figure of figures) {
             await TrackService.add(req.session.name, figure, address);
         }

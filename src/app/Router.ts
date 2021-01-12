@@ -15,11 +15,7 @@ const upload = multer({
             cb(null, uploadDest);
         },
         filename: function(req, file, cb) {
-            if (file.originalname.endsWith('.gltf')) {
-                cb(null, Date.now() + '_' + file.fieldname + '.gltf');
-            } else {
-                cb(null, file.originalname);
-            }
+            cb(null, Date.now() + '_' + file.fieldname + '.gltf');
         },
     }),
 });
@@ -73,7 +69,7 @@ export default class Router {
         router.post('/changeRole/:name', helpers.isAuth, UserController.changeRole);
         router.post('/changeStatus/:trackId', helpers.isAuth, UserController.changeStatus);
         router.post('/cart', helpers.isAuth, UserController.postCart);
-        router.post('/upload', helpers.isAuth, upload.single('modelFile'), upload.array(''), UserController.postUpload);
+        router.post('/upload', helpers.isAuth, upload.single('modelFile'), UserController.postUpload);
         router.post('/checkout', helpers.isAuth, UserController.postCheckout);
 
         router.get('*', ErrorController.notFound);
