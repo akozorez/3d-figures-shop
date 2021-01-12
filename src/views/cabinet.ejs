@@ -70,6 +70,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">TrackId</th>
+                        <th scope="col">Address</th>
                         <th scope="col">Status</th>
                         <th scope="col">Change</th>
                     </tr>
@@ -79,6 +80,7 @@
                         <tr>
                             <td scope="row"><%= i + 1 %></td>
                             <td><%= managerData[i]._id %></td>
+                            <td><%= managerData[i].address %></td>
                             <td><%= ['Assembled', 'PreShip', 'Delivered', 'Received'][managerData[i].status] %></td>
                             <td>
                                 <button onclick=changeStatus('<%= managerData[i]._id %>')
